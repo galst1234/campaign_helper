@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import {Layout} from 'antd';
 import './App.css';
+import {Route, Router, Switch} from "react-router-dom";
+import {createBrowserHistory} from "history";
+import {SideMenu} from "./Components/Layout/Sider";
+import {HeaderMenu} from "./Components/Layout/Header";
+import {LoginModal} from "./Components/Auth/LoginModal";
+import {User} from "./backend_api/models";
+
+const history = createBrowserHistory();
+
+export const CampaignContext = React.createContext(undefined);
+export const UserContext = React.createContext<User | undefined>(undefined);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+    const [user, setUser] = useState<User | undefined>(undefined);
+
+    return (
+        <UserContext.Provider value={user}>
+            <Router history={history}>
+                <Layout style={{minHeight: '100vh'}}>
+                    <HeaderMenu
+                        showLoginModal={() => {
+                            setShowLoginModal(true)
+                        }}
+                    />
+                    <Layout>
+                        <SideMenu/>
+                        <Layout.Content style={{padding: "25px 50px"}}>
+                            {/* TODO: Routing should be separated in its own components directory with all the routs etc. */}
+                            <Switch>
+                                <Route path="/a">a</Route>
+                                <Route path="/b">b</Route>
+                            </Switch>
+                        </Layout.Content>
+                    </Layout>
+                </Layout>
+            </Router>
+            <LoginModal
+                visible={showLoginModal}
+                onExit={() => {
+                    setShowLoginModal(false)
+                }}
+                setUser={(user) => {
+                    setUser(user);
+                }}
+            />
+        </UserContext.Provider>
+    );
 }
 
 export default App;
