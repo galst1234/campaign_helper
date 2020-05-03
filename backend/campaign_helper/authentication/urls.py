@@ -1,6 +1,11 @@
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import UserDetail
+
+from .views import UserViewSet
+
+router = DefaultRouter()
+router.register('user', UserViewSet, 'user')
 
 urlpatterns = [
     # Tokens
@@ -8,7 +13,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # Other
-    path('user/<int:pk>/', UserDetail.as_view()),
+    path(r'', include(router.urls)),
 
     # Testing
     path('api-auth/', include('rest_framework.urls')),
