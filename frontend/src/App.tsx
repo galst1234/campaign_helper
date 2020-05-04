@@ -25,6 +25,7 @@ function App() {
                         showLoginModal={() => {
                             setShowLoginModal(true)
                         }}
+                        setUser={setUser}
                     />
                     <Layout>
                         <SideMenu/>
@@ -43,9 +44,7 @@ function App() {
                 onExit={() => {
                     setShowLoginModal(false)
                 }}
-                setUser={(user) => {
-                    setUser(user);
-                }}
+                setUser={setUser}
             />
         </UserContext.Provider>
     );

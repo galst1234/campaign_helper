@@ -1,9 +1,10 @@
 import {useForm} from "antd/lib/form/Form";
 import {Button, Form, Input, Modal, notification} from "antd";
 import React from "react";
-import {ApiApi as Api, User} from "../../backend_api"
+import {User} from "../../backend_api"
+import {JwtApi} from "../../ApiClient/ApiClient";
 
-const API = new Api();
+const API = new JwtApi();
 
 export function LoginModal(props: { visible: boolean, onExit: () => void, setUser: (user: User | undefined) => void }) {
     const [form] = useForm();
@@ -20,12 +21,11 @@ export function LoginModal(props: { visible: boolean, onExit: () => void, setUse
                 labelCol={{span: 5}}
                 onFinish={async function (values) {
                     try {
-                        // @ts-ignore
-                        const token = await API.createTokenObtainPair({tokenObtainPair: values})
-                        const userData = await API.myInfoUser({authorization: `Token ${token.access}`});
+                        await API.login(values as {username: string, password: string})
+                        const userData = await API.myInfoUser();
                         props.setUser(userData);
                         props.onExit();
-
+                        form.resetFields();
                     } catch (e) {
                         console.error(e);
                         notification.error({message: "Error", description: "Login failed"});

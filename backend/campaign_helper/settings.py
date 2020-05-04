@@ -45,7 +45,9 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('Token',)
+    'AUTH_HEADER_TYPES': ('Token',),
+    'SIGNING_KEY': SECRET_KEY,
+    'ROTATE_REFRESH_TOKENS': True,
 }
 
 MIDDLEWARE = [

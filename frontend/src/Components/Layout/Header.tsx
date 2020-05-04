@@ -2,10 +2,14 @@ import React, {useContext} from "react";
 import {Button, Layout, Menu} from "antd";
 import {Link} from "react-router-dom";
 import {UserContext} from "../../App";
+import {JwtApi} from "../../ApiClient/ApiClient";
+import {User} from "../../backend_api";
 
 // TODO: Make menu from list of objects, prettify
 
-export function HeaderMenu(props: { showLoginModal: () => void }) {
+const API = new JwtApi();
+
+export function HeaderMenu(props: { showLoginModal: () => void, setUser: (user: User | undefined) => void }) {
     const userContext = useContext(UserContext);
 
     return (
@@ -29,7 +33,14 @@ export function HeaderMenu(props: { showLoginModal: () => void }) {
                     </Menu.Item>
                     {userContext ?
                         <Menu.SubMenu key="account" title={userContext.username} style={{float: "right"}}>
-                            <Menu.Item>yay</Menu.Item>
+                            <Menu.Item
+                                onClick={() => {
+                                    API.logout();
+                                    props.setUser(undefined);
+                                }}
+                            >
+                                Log out
+                            </Menu.Item>
                         </Menu.SubMenu> : null}
                 </Menu>
             </div>
