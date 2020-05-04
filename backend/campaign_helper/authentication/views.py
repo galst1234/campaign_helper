@@ -12,7 +12,9 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def get_permissions(self):
-        if self.detail and not self.action == 'retrieve':
+        if self.action == 'my_info':
+            return [permissions.IsAuthenticated()]
+        elif self.detail and not self.action == 'retrieve':
             return [(IsUser | permissions.IsAdminUser)()]
         return [permissions.AllowAny()]
 

@@ -49,12 +49,6 @@ paths:
     get:
       operationId: myInfoUser
       description: ''
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
-          required: true
       responses:
         '200':
           content:
@@ -183,7 +177,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenResponse'
+                $ref: '#/components/schemas/Token'
           description: ''
       tags:
       - api
@@ -211,7 +205,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenRefresh'
+                $ref: '#/components/schemas/Token'
           description: ''
       tags:
       - api
@@ -242,7 +236,7 @@ components:
       required:
       - username
       - password
-    TokenResponse:
+    Token:
       type: object
       properties:
         access:
