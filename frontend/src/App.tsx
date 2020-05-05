@@ -7,6 +7,7 @@ import {SideMenu} from "./Components/Layout/Sider";
 import {HeaderMenu} from "./Components/Layout/Header";
 import {LoginModal} from "./Components/Auth/LoginModal";
 import {User} from "./backend_api/models";
+import {MainSwitch} from './Components/Layout/Navigation';
 
 const history = createBrowserHistory();
 
@@ -30,11 +31,7 @@ function App() {
                     <Layout>
                         <SideMenu/>
                         <Layout.Content style={{padding: "25px 50px"}}>
-                            {/* TODO: Routing should be separated in its own components directory with all the routs etc. */}
-                            <Switch>
-                                <Route path="/a">a</Route>
-                                <Route path="/b">b</Route>
-                            </Switch>
+                            <MainSwitch/>
                         </Layout.Content>
                     </Layout>
                 </Layout>

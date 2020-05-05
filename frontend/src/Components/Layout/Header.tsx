@@ -4,8 +4,7 @@ import {Link} from "react-router-dom";
 import {UserContext} from "../../App";
 import {JwtApi} from "../../ApiClient/ApiClient";
 import {User} from "../../backend_api";
-
-// TODO: Make menu from list of objects, prettify
+import {generateMainMenu} from "./Navigation";
 
 const API = new JwtApi();
 
@@ -19,29 +18,29 @@ export function HeaderMenu(props: { showLoginModal: () => void, setUser: (user: 
                     <span>Campaign Helper</span>
                 </Link>
             </div>
-            {userContext ? null :
-                <div style={{float: "right"}}>
-                    <Button type="link" ghost onClick={props.showLoginModal} key="login">Log in</Button>
-                </div>}
+            {
+                userContext ? null :
+                    <div style={{float: "right"}}>
+                        <Button type="link" ghost onClick={props.showLoginModal} key="login">Log in</Button>
+                    </div>
+            }
             <div style={{overflow: "hidden"}}>
                 <Menu mode="horizontal" theme="dark">
-                    <Menu.Item key="a">
-                        <Link to="/a">a</Link>
-                    </Menu.Item>
-                    <Menu.Item key="b">
-                        <Link to="/b">b</Link>
-                    </Menu.Item>
-                    {userContext ?
-                        <Menu.SubMenu key="account" title={userContext.username} style={{float: "right"}}>
-                            <Menu.Item
-                                onClick={() => {
-                                    API.logout();
-                                    props.setUser(undefined);
-                                }}
-                            >
-                                Log out
-                            </Menu.Item>
-                        </Menu.SubMenu> : null}
+                    {generateMainMenu()}
+                    {
+                        userContext ?
+                            <Menu.SubMenu key="account" title={userContext.username} style={{float: "right"}}>
+                                <Menu.Item
+                                    onClick={() => {
+                                        API.logout();
+                                        props.setUser(undefined);
+                                    }}
+                                >
+                                    Log out
+                                </Menu.Item>
+                            </Menu.SubMenu>
+                            : null
+                    }
                 </Menu>
             </div>
         </Layout.Header>
