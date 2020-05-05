@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Layout} from 'antd';
 import './App.css';
-import {Route, Router, Switch} from "react-router-dom";
+import {Router} from "react-router-dom";
 import {createBrowserHistory} from "history";
 import {SideMenu} from "./Components/Layout/Sider";
 import {HeaderMenu} from "./Components/Layout/Header";
