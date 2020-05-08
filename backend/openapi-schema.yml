@@ -49,6 +49,7 @@ paths:
     get:
       operationId: myInfoUser
       description: ''
+      parameters: []
       responses:
         '200':
           content:
@@ -223,8 +224,17 @@ components:
             only.
           pattern: ^[\w.@+-]+\Z
           maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 254
       required:
       - username
+      - password
     TokenObtainPair:
       type: object
       properties:
