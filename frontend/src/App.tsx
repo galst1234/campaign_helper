@@ -5,11 +5,9 @@ import {Router} from "react-router-dom";
 import {createBrowserHistory} from "history";
 import {SideMenu} from "./Components/Layout/Sider";
 import {HeaderMenu} from "./Components/Layout/Header";
-import {LoginModal} from "./Components/Auth/LoginModal";
 import {User} from "./backend_api/models";
 import {MainSwitch} from './Components/Layout/Navigation';
 import {JwtApi, localStorageAccessToken, localStorageRefreshToken} from "./ApiClient/ApiClient";
-
 
 const history = createBrowserHistory();
 
@@ -17,7 +15,6 @@ export const CampaignContext = React.createContext(undefined);
 export const UserContext = React.createContext<User | undefined>(undefined);
 
 function App() {
-    const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
     const [user, setUser] = useState<User | undefined>(undefined);
     const API = new JwtApi();
 
@@ -43,9 +40,6 @@ function App() {
             <Router history={history}>
                 <Layout style={{minHeight: '100vh'}}>
                     <HeaderMenu
-                        showLoginModal={() => {
-                            setShowLoginModal(true)
-                        }}
                         setUser={setUser}
                     />
                     <Layout>
@@ -56,13 +50,6 @@ function App() {
                     </Layout>
                 </Layout>
             </Router>
-            <LoginModal
-                visible={showLoginModal}
-                onExit={() => {
-                    setShowLoginModal(false)
-                }}
-                setUser={setUser}
-            />
         </UserContext.Provider>
     );
 }
