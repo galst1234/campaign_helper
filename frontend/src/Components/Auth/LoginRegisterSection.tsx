@@ -1,6 +1,6 @@
 import {Button} from "antd";
 import React from "react";
-import {AuthModals} from "./AuthModals";
+import {AuthModals} from "./Modals";
 
 export default function LoginRegisterSection(props: { setVisibleModal: React.Dispatch<React.SetStateAction<AuthModals>> }) {
     return (
@@ -14,6 +14,17 @@ export default function LoginRegisterSection(props: { setVisibleModal: React.Dis
                 key="login"
             >
                 Log in
+            </Button>
+            /
+            <Button
+                type="link"
+                ghost
+                onClick={() => {
+                    props.setVisibleModal(AuthModals.Register);
+                }}
+                key="register"
+            >
+                Register
             </Button>
         </div>
     );

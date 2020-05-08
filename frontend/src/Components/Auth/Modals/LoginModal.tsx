@@ -1,8 +1,8 @@
 import {useForm} from "antd/lib/form/Form";
 import {Button, Form, Input, Modal, notification} from "antd";
 import React from "react";
-import {User} from "../../backend_api"
-import {JwtApi} from "../../ApiClient/ApiClient";
+import {User} from "../../../backend_api"
+import {JwtApi} from "../../../ApiClient/ApiClient";
 
 const API = new JwtApi();
 

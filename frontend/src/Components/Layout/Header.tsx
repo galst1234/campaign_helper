@@ -4,10 +4,9 @@ import {Link} from "react-router-dom";
 import {UserContext} from "../../App";
 import {User} from "../../backend_api";
 import {generateMainMenu} from "./Navigation";
-import {LoginModal} from "../Auth/LoginModal";
+import {LoginModal, RegistrationModal, AuthModals} from "../Auth/Modals";
 import generateAccountSubMenu from "../Auth/AccountSubMenu";
 import LoginRegisterSection from "../Auth/LoginRegisterSection";
-import {AuthModals} from "../Auth/AuthModals";
 
 export function HeaderMenu(props: { setUser: (user: User | undefined) => void }) {
     const [visibleModal, setVisibleModal] = useState<AuthModals>(AuthModals.None);
@@ -31,6 +30,13 @@ export function HeaderMenu(props: { setUser: (user: User | undefined) => void })
             </Layout.Header>
             <LoginModal
                 visible={visibleModal === AuthModals.Login}
+                onExit={() => {
+                    setVisibleModal(AuthModals.None)
+                }}
+                setUser={props.setUser}
+            />
+            <RegistrationModal
+                visible={visibleModal === AuthModals.Register}
                 onExit={() => {
                     setVisibleModal(AuthModals.None)
                 }}
