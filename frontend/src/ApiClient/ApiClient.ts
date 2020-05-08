@@ -1,11 +1,11 @@
 import {ApiApi as Api, CreateTokenObtainPairRequest, CreateTokenRefreshRequest} from "../backend_api";
 import {RequestOpts, Token} from "../backend_api";
 
-const tokenPrefix = 'Token';
-const localStorageAccessToken = 'token_access';
-const localStorageRefreshToken = 'token_refresh';
-const invalidTokenCode = 'token_not_valid';
-const accessTokenType = 'access';
+export const tokenPrefix = 'Token';
+export const localStorageAccessToken = 'token_access';
+export const localStorageRefreshToken = 'token_refresh';
+export const invalidTokenCode = 'token_not_valid';
+export const accessTokenType = 'access';
 
 export class JwtApi extends Api {
     private updateAuthorization(token: Token) {
