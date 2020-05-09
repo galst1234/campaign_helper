@@ -1,20 +1,36 @@
 import {useForm} from "antd/lib/form/Form";
 import {Button, Form, Input, Modal, notification} from "antd";
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {User} from "../../../backend_api"
 import {JwtApi} from "../../../ApiClient/ApiClient";
+import {AuthModals} from "./index";
 
 const API = new JwtApi();
 
-export function RegistrationModal(props: { visible: boolean, onExit: () => void, setUser: (user: User | undefined) => void }) {
+export function RegistrationModal(props: { visibleAuthModal: AuthModals, setVisibleAuthModal: Dispatch<SetStateAction<AuthModals>>, setUser: (user: User | undefined) => void }) {
     const [form] = useForm();
 
     return (
         <Modal
             title="Register"
-            visible={props.visible}
-            onCancel={props.onExit}
-            footer={null}
+            visible={props.visibleAuthModal === AuthModals.Register}
+            onCancel={() => {
+                props.setVisibleAuthModal(AuthModals.None);
+            }}
+            footer={
+                <>
+                    Already have an account?&nbsp;
+                    <Button
+                        type="link"
+                        className="no-padding"
+                        onClick={() => {
+                            props.setVisibleAuthModal(AuthModals.Login);
+                        }}
+                    >
+                        Log in
+                    </Button>
+                </>
+            }
         >
             <Form
                 form={form}
@@ -23,8 +39,12 @@ export function RegistrationModal(props: { visible: boolean, onExit: () => void,
                     try {
                         const userData = await API.createUser({user: values as User})
                         props.setUser(userData);
-                        notification.success({message: 'User Created!', description: `Successfully created user ${userData.username}`});
-                        props.onExit();
+                        await API.login(values as { username: string, password: string });
+                        notification.success({
+                            message: 'User Created!',
+                            description: `Successfully created user ${userData.username}`
+                        });
+                        props.setVisibleAuthModal(AuthModals.None);
                         form.resetFields();
                     } catch (e) {
                         console.error(e);
@@ -77,8 +97,8 @@ export function RegistrationModal(props: { visible: boolean, onExit: () => void,
                 >
                     <Input/>
                 </Form.Item>
-                <Form.Item style={{margin: 0}}>
-                    <Button type="primary" htmlType="submit" style={{float: "right"}}>
+                <Form.Item className="no-margin">
+                    <Button type="primary" htmlType="submit" className="right">
                         Register
                     </Button>
                 </Form.Item>

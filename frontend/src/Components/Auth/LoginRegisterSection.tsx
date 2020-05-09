@@ -4,25 +4,25 @@ import {AuthModals} from "./Modals";
 
 export default function LoginRegisterSection(props: { setVisibleModal: React.Dispatch<React.SetStateAction<AuthModals>> }) {
     return (
-        <div style={{float: "right"}}>
+        <div className="right">
             <Button
                 type="link"
                 ghost
+                className="no-padding"
                 onClick={() => {
                     props.setVisibleModal(AuthModals.Login);
                 }}
-                key="login"
             >
                 Log in
             </Button>
-            /
+            &nbsp;/&nbsp;
             <Button
                 type="link"
                 ghost
+                className="no-padding"
                 onClick={() => {
                     props.setVisibleModal(AuthModals.Register);
                 }}
-                key="register"
             >
                 Register
             </Button>

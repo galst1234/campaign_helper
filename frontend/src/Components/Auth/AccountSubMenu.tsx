@@ -7,7 +7,7 @@ export default function generateAccountSubMenu(user: User, setUser: (user: User 
     const API = new JwtApi();
 
     return (
-        <Menu.SubMenu key="account" title={user.username} style={{float: "right"}}>
+        <Menu.SubMenu key="account" title={user.username} className="right">
             <Menu.Item
                 onClick={() => {
                     API.logout();
