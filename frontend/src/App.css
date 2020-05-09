@@ -1,2 +1,17 @@
 @import '~antd/dist/antd.dark.css';
 
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
