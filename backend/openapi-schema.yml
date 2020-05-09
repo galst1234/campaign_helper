@@ -231,6 +231,7 @@ components:
         email:
           type: string
           format: email
+          writeOnly: true
           maxLength: 254
       required:
       - username
